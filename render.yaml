@@ -1,0 +1,43 @@
+services:
+  # MinIO server
+  - type: web
+    name: minio-server
+    region: frankfurt
+    healthCheckPath: /minio/health/live
+    runtime: image
+    image:
+      url: docker.io/minio/minio:RELEASE.2023-10-07T15-07-38Z
+    dockerCommand: minio server /data
+    autoDeploy: false
+    disk:
+      name: data
+      mountPath: /data
+    envVars:
+      - key: MINIO_ROOT_USER
+        generateValue: true
+      - key: MINIO_ROOT_PASSWORD
+        generateValue: true
+      - key: MINIO_BROWSER
+        value: "off"
+
+  # MinIO console
+  - type: web
+    name: minio-console
+    region: frankfurt
+    runtime: image
+    image:
+      url: minio/console:v0.30.0
+    dockerCommand: /bin/bash -c CONSOLE_MINIO_SERVER=https://$MINIO_HOST.onrender.com ./console server --port $PORT
+    autoDeploy: false
+    envVars:
+      - key: CONSOLE_PBKDF_PASSPHRASE
+        generateValue: true
+      - key: CONSOLE_PBKDF_SALT
+        generateValue: true
+      - key: PORT
+        value: 9090
+      - key: MINIO_HOST
+        fromService:
+          name: minio-server
+          type: web
+          property: host
