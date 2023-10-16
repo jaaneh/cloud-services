@@ -1,43 +1,39 @@
 services:
-  # MinIO server
+  # Grafana
   - type: web
-    name: minio-server
+    name: grafana-server
     region: frankfurt
-    healthCheckPath: /minio/health/live
     runtime: image
     image:
-      url: docker.io/minio/minio:RELEASE.2023-10-07T15-07-38Z
-    dockerCommand: minio server /data
+      url: grafana/grafana:latest
     autoDeploy: false
     disk:
-      name: data
-      mountPath: /data
+      name: grafana-data
+      mountPath: /var/lib/grafana
     envVars:
-      - key: MINIO_ROOT_USER
-        generateValue: true
-      - key: MINIO_ROOT_PASSWORD
-        generateValue: true
-      - key: MINIO_BROWSER
-        value: "off"
+      - key: GF_SECURITY_ADMIN_PASSWORD
+        value: "your_password"
 
-  # MinIO console
-  - type: web
-    name: minio-console
+  # Prometheus
+  - type: pserv
+    name: prometheus-server
     region: frankfurt
     runtime: image
     image:
-      url: minio/console:v0.30.0
-    dockerCommand: /bin/bash -c CONSOLE_MINIO_SERVER=https://$MINIO_HOST.onrender.com ./console server --port $PORT
+      url: prom/prometheus:latest
     autoDeploy: false
-    envVars:
-      - key: CONSOLE_PBKDF_PASSPHRASE
-        generateValue: true
-      - key: CONSOLE_PBKDF_SALT
-        generateValue: true
-      - key: PORT
-        value: 9090
-      - key: MINIO_HOST
-        fromService:
-          name: minio-server
-          type: web
-          property: host
+    disk:
+      name: prometheus-data
+      mountPath: /prometheus
+
+  # Loki
+  - type: pserv
+    name: loki-server
+    region: frankfurt
+    runtime: image
+    image:
+      url: grafana/loki:latest
+    autoDeploy: false
+    disk:
+      name: loki-data
+      mountPath: /loki
