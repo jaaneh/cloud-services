@@ -1,39 +1,33 @@
 services:
-  # Grafana
   - type: web
     name: grafana-server
     region: frankfurt
-    runtime: image
-    image:
-      url: grafana/grafana:latest
     autoDeploy: false
+    runtime: docker
+    dockerfilePath: ./grafana/Dockerfile
+    dockerContext: ./grafana
     disk:
       name: grafana-data
       mountPath: /var/lib/grafana
-    envVars:
-      - key: GF_SECURITY_ADMIN_PASSWORD
-        value: "your_password"
 
-  # Prometheus
   - type: pserv
     name: prometheus-server
     region: frankfurt
-    runtime: image
-    image:
-      url: prom/prometheus:latest
     autoDeploy: false
+    runtime: docker
+    dockerfilePath: ./prometheus/Dockerfile
+    dockerContext: ./prometheus
     disk:
       name: prometheus-data
       mountPath: /prometheus
 
-  # Loki
   - type: pserv
     name: loki-server
     region: frankfurt
-    runtime: image
-    image:
-      url: grafana/loki:latest
     autoDeploy: false
+    runtime: docker
+    dockerfilePath: ./loki/Dockerfile
+    dockerContext: ./loki
     disk:
       name: loki-data
       mountPath: /loki
