@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: grafana-server
+    name: noroff-grafana
     region: frankfurt
     autoDeploy: false
     runtime: docker
@@ -11,7 +11,7 @@ services:
       mountPath: /var/lib/grafana
 
   - type: pserv
-    name: prometheus-server
+    name: noroff-prometheus
     region: frankfurt
     autoDeploy: false
     runtime: docker
@@ -22,7 +22,7 @@ services:
       mountPath: /prometheus
 
   - type: pserv
-    name: loki-server
+    name: noroff-loki
     region: frankfurt
     autoDeploy: false
     runtime: docker
