@@ -86,7 +86,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "10.1.4",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {
@@ -166,17 +166,19 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "10.1.4",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(rate(http_request_duration_seconds_count{instance=\"$instance\"}[$interval]))",
+          "expr": "sum(rate(http_request_duration_seconds_count{instance=\"$instance\", route!=\"/metrics\"}[$interval]))",
           "interval": "",
           "legendFormat": "",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -243,14 +245,15 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "10.1.4",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "sum(http_request_duration_seconds_count{instance=~\"$instance\"})",
+          "editorMode": "code",
+          "expr": "sum(http_request_duration_seconds_count{instance=~\"$instance\", route!=\"/metrics\"})",
           "instant": false,
           "refId": "A"
         }
@@ -321,7 +324,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "10.1.4",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {
@@ -397,7 +400,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "10.1.4",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {
@@ -474,7 +477,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "10.1.4",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {
@@ -554,7 +557,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "10.1.4",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {
@@ -992,8 +995,10 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
+          "editorMode": "code",
           "expr": "nodejs_active_handles_total{instance=~\"$instance\"}",
           "legendFormat": "Active Handler",
+          "range": true,
           "refId": "A"
         },
         {
@@ -1001,8 +1006,10 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
+          "editorMode": "code",
           "expr": "nodejs_active_requests_total{instance=~\"$instance\"}",
           "legendFormat": "Active Request",
+          "range": true,
           "refId": "B"
         }
       ],
@@ -1894,8 +1901,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1988,8 +1994,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2085,8 +2090,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2234,8 +2238,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2306,8 +2309,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2404,8 +2406,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2492,7 +2493,6 @@
             "mode": "thresholds"
           },
           "custom": {
-            "align": "auto",
             "cellOptions": {
               "type": "auto"
             },
@@ -2504,8 +2504,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2604,8 +2603,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2702,8 +2700,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2802,8 +2799,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2889,8 +2885,8 @@
       {
         "current": {
           "selected": true,
-          "text": ["api-v2:3000"],
-          "value": ["api-v2:3000"]
+          "text": ["noroff-api-v2:3000"],
+          "value": ["noroff-api-v2:3000"]
         },
         "datasource": {
           "type": "prometheus",
