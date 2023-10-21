@@ -2885,8 +2885,8 @@
       {
         "current": {
           "selected": true,
-          "text": ["noroff-api-v1:3000"],
-          "value": ["noroff-api-v1:3000"]
+          "text": ["nf-api:3000"],
+          "value": ["nf-api:3000"]
         },
         "datasource": {
           "type": "prometheus",
